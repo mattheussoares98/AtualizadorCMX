@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32804.467
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtualizarCMX", "AtualizarCMX.csproj", "{2A081A7F-FEEB-49FA-A1C9-1CC999C3DFB3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2A081A7F-FEEB-49FA-A1C9-1CC999C3DFB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A081A7F-FEEB-49FA-A1C9-1CC999C3DFB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A081A7F-FEEB-49FA-A1C9-1CC999C3DFB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A081A7F-FEEB-49FA-A1C9-1CC999C3DFB3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C8C21301-7505-4581-A43F-43E6647BB13A}
+	EndGlobalSection
+EndGlobal
