@@ -123,16 +123,18 @@ namespace AtualizarCMX {
                 string fileContent = File.ReadAllText(crossDestinyPath);
 
 
-                string pattern = @"(?:http:\/\/)?([^\/:\s]+):(\d+)";
-                Match matchCross = Regex.Match(crossTextWithoutComments, pattern);
-                Match matchCrossSite = Regex.Match(crossSiteTextWithoutComments, pattern);
+                string patternCrossSite = @"(?:http:\/\/)?([^\/:\s]+):(\d+)";
+
+                string patternCross = @"http:\/\/(.*?)(?=\/ccs)";
+                Match matchCross = Regex.Match(crossTextWithoutComments, patternCross);
+                Match matchCrossSite = Regex.Match(crossSiteTextWithoutComments, patternCrossSite);
 
                 if(matchCross.Success) {
                     string ipAddress = matchCross.Groups[1].Value;
                     string port = matchCross.Groups[2].Value;
 
-                    crossIPAndPort = ipAddress + ":" + port;
-                } else {
+                    crossIPAndPort = matchCross.Groups[1].Value;
+                    } else {
                     MessageBox.Show("IP com porta não encontrado no texto. Ocorreu algum erro na atualização do Web.config!");
                 }
 
@@ -147,7 +149,7 @@ namespace AtualizarCMX {
 
 
             } catch(Exception ex) {
-                MessageBox.Show("An error occurred: " + ex.Message);
+                MessageBox.Show("An error occurred in getIpOfWebConfig: " + ex.Message);
             }
         }
         private async Task updateWebConfig(string destinyPath) {
@@ -164,7 +166,7 @@ namespace AtualizarCMX {
                 File.WriteAllText(crossSiteDestinyPath, crossSiteConfigText);
 
             } catch(Exception ex) {
-                MessageBox.Show("An error occurred: " + ex.Message);
+                MessageBox.Show("An error occurred in updateWebConfig: " + ex.Message);
             }
         }
 
