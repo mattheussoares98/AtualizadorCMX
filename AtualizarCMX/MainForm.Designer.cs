@@ -28,25 +28,26 @@
             this.buttonDownloadVersion = new System.Windows.Forms.Button();
             this.labelDate = new System.Windows.Forms.Label();
             this.progressBarDownloading = new System.Windows.Forms.ProgressBar();
-            this.labelDestinyPath = new System.Windows.Forms.Label();
             this.buttonUpdate = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.listBoxPaths = new System.Windows.Forms.ListBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.buttonRemovePath = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonSelectPath
             // 
-            this.buttonSelectPath.Location = new System.Drawing.Point(153, 66);
+            this.buttonSelectPath.Location = new System.Drawing.Point(182, 35);
             this.buttonSelectPath.Name = "buttonSelectPath";
-            this.buttonSelectPath.Size = new System.Drawing.Size(131, 41);
+            this.buttonSelectPath.Size = new System.Drawing.Size(162, 40);
             this.buttonSelectPath.TabIndex = 0;
-            this.buttonSelectPath.Text = "Selecionar destino";
+            this.buttonSelectPath.Text = "Adicionar destino";
             this.buttonSelectPath.UseVisualStyleBackColor = true;
             this.buttonSelectPath.Click += new System.EventHandler(this.buttonSelectPath_Click);
             // 
             // labelDownloadedVersion
             // 
             this.labelDownloadedVersion.AutoSize = true;
-            this.labelDownloadedVersion.Location = new System.Drawing.Point(13, 9);
+            this.labelDownloadedVersion.Location = new System.Drawing.Point(12, 328);
             this.labelDownloadedVersion.Name = "labelDownloadedVersion";
             this.labelDownloadedVersion.Size = new System.Drawing.Size(205, 13);
             this.labelDownloadedVersion.TabIndex = 1;
@@ -54,9 +55,9 @@
             // 
             // buttonDownloadVersion
             // 
-            this.buttonDownloadVersion.Location = new System.Drawing.Point(12, 66);
+            this.buttonDownloadVersion.Location = new System.Drawing.Point(12, 352);
             this.buttonDownloadVersion.Name = "buttonDownloadVersion";
-            this.buttonDownloadVersion.Size = new System.Drawing.Size(131, 41);
+            this.buttonDownloadVersion.Size = new System.Drawing.Size(166, 40);
             this.buttonDownloadVersion.TabIndex = 2;
             this.buttonDownloadVersion.Text = "Baixar versão";
             this.buttonDownloadVersion.UseVisualStyleBackColor = true;
@@ -66,7 +67,7 @@
             // 
             this.labelDate.AutoEllipsis = true;
             this.labelDate.AutoSize = true;
-            this.labelDate.Location = new System.Drawing.Point(224, 9);
+            this.labelDate.Location = new System.Drawing.Point(223, 328);
             this.labelDate.Name = "labelDate";
             this.labelDate.Size = new System.Drawing.Size(13, 13);
             this.labelDate.TabIndex = 4;
@@ -74,48 +75,58 @@
             // 
             // progressBarDownloading
             // 
-            this.progressBarDownloading.Location = new System.Drawing.Point(12, 34);
+            this.progressBarDownloading.Location = new System.Drawing.Point(12, 299);
             this.progressBarDownloading.Name = "progressBarDownloading";
-            this.progressBarDownloading.Size = new System.Drawing.Size(409, 26);
+            this.progressBarDownloading.Size = new System.Drawing.Size(332, 26);
             this.progressBarDownloading.TabIndex = 5;
             this.progressBarDownloading.Visible = false;
             // 
-            // labelDestinyPath
-            // 
-            this.labelDestinyPath.AutoSize = true;
-            this.labelDestinyPath.Location = new System.Drawing.Point(111, 120);
-            this.labelDestinyPath.Name = "labelDestinyPath";
-            this.labelDestinyPath.Size = new System.Drawing.Size(144, 13);
-            this.labelDestinyPath.TabIndex = 6;
-            this.labelDestinyPath.Text = "Selecione a pasta de destino";
-            // 
             // buttonUpdate
             // 
-            this.buttonUpdate.Location = new System.Drawing.Point(290, 66);
+            this.buttonUpdate.Location = new System.Drawing.Point(182, 352);
             this.buttonUpdate.Name = "buttonUpdate";
-            this.buttonUpdate.Size = new System.Drawing.Size(131, 41);
+            this.buttonUpdate.Size = new System.Drawing.Size(164, 40);
             this.buttonUpdate.TabIndex = 7;
             this.buttonUpdate.Text = "Atualizar";
             this.buttonUpdate.UseVisualStyleBackColor = true;
             this.buttonUpdate.Click += new System.EventHandler(this.buttonUpdate_Click);
             // 
-            // label1
+            // listBoxPaths
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 120);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(92, 13);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Pasta de destino: ";
+            this.listBoxPaths.FormattingEnabled = true;
+            this.listBoxPaths.Location = new System.Drawing.Point(12, 81);
+            this.listBoxPaths.Name = "listBoxPaths";
+            this.listBoxPaths.Size = new System.Drawing.Size(332, 212);
+            this.listBoxPaths.TabIndex = 8;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(12, 9);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(332, 20);
+            this.textBox1.TabIndex = 9;
+            this.textBox1.Text = "Informe o diretório";
+            this.textBox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyUp);
+            // 
+            // buttonRemovePath
+            // 
+            this.buttonRemovePath.Location = new System.Drawing.Point(12, 35);
+            this.buttonRemovePath.Name = "buttonRemovePath";
+            this.buttonRemovePath.Size = new System.Drawing.Size(162, 40);
+            this.buttonRemovePath.TabIndex = 10;
+            this.buttonRemovePath.Text = "Remover destino  selecionado";
+            this.buttonRemovePath.UseVisualStyleBackColor = true;
+            this.buttonRemovePath.Click += new System.EventHandler(this.buttonRemovePath_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(426, 144);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(357, 398);
+            this.Controls.Add(this.buttonRemovePath);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.listBoxPaths);
             this.Controls.Add(this.buttonUpdate);
-            this.Controls.Add(this.labelDestinyPath);
             this.Controls.Add(this.progressBarDownloading);
             this.Controls.Add(this.labelDate);
             this.Controls.Add(this.buttonDownloadVersion);
@@ -137,8 +148,9 @@
         private System.Windows.Forms.Button buttonUpdate;
         public System.Windows.Forms.ProgressBar progressBarDownloading;
         public System.Windows.Forms.Button buttonDownloadVersion;
-        public System.Windows.Forms.Label labelDestinyPath;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button buttonRemovePath;
+        public System.Windows.Forms.ListBox listBoxPaths;
     }
 }
 

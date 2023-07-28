@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FolderBrowserDialog = System.Windows.Forms.FolderBrowserDialog;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace AtualizarCMX {
     public partial class MainForm: Form {
@@ -41,37 +42,35 @@ namespace AtualizarCMX {
         }
 
         private void buttonSelectPath_Click(object sender, EventArgs e) {
-
-            using(var dialog = new FolderBrowserDialog()) {
-
-                dialog.Description = "Selecione uma pasta";
-                dialog.RootFolder = Environment.SpecialFolder.MyComputer;
-
-                DialogResult result = dialog.ShowDialog();
-
-                if(result == DialogResult.OK) {
-
-                    if(!dialog.SelectedPath.ToLower().Contains("cmxweb")) {
-                        MessageBox.Show("Diretório inválido!. Selecione a pasta 'CmxWeb'");
-                        return;
-                    } else if(dialog.SelectedPath.ToLower().Contains("cross")) {
-                        MessageBox.Show("Diretório inválido!. Selecione a pasta 'CmxWeb'");
-                        return;
-                    } else if(dialog.SelectedPath.ToLower().Contains("crosssite")) {
-                        MessageBox.Show("Diretório inválido!. Selecione a pasta 'CmxWeb'");
-                        return;
-                    } else {
-                        labelDestinyPath.Text = dialog.SelectedPath;
-                    }
-                }
+            if(!textBox1.Text.Contains("\\")) {
+                MessageBox.Show("Diretório inválido!");
+            } else if(!textBox1.Text.ToLower().EndsWith("cmxweb")) {
+                MessageBox.Show("Diretório inválido!. O nome do diretório precisa terminar com 'CmxWeb'");
+            } else if(!textBox1.Text.ToLower().Contains(":")) {
+                MessageBox.Show("Diretório inválido!. O endereço não possui ':'");
+            } else {
+                listBoxPaths.Items.Add(textBox1.Text);
+                textBox1.Text = "";
             }
 
         }
 
         private async void buttonUpdate_Click(object sender, EventArgs e) {
             disableForms();
-            await new UpdateFiles().updateFiles(this);
+            await Task.Run(() => new UpdateFiles().updateFiles(this));
             enableForms();
+        }
+
+        private void buttonRemovePath_Click(object sender, EventArgs e) {
+            if(listBoxPaths.SelectedIndex != -1) {
+                listBoxPaths.Items.RemoveAt(listBoxPaths.SelectedIndex);
+            }
+        }
+
+        private void textBox1_KeyUp(object sender, KeyEventArgs e) {
+            if(e.KeyCode == Keys.Enter) {
+                buttonSelectPath_Click(null, null);
+            }
         }
     }
 

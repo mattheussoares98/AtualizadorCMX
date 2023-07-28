@@ -8,40 +8,61 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace AtualizarCMX {
     internal class UpdateFiles {
         private string crossSiteIPAndPort = "";
         private string crossIPAndPort = "";
 
+        private bool validatePaths(ListBox.ObjectCollection paths) {
+            bool canContinue = true;
+            foreach(string path in paths) {
+                if(!existPaths(path)) {
+                    canContinue = false;
+                    break;
+                }
+            }
+            return canContinue;
+        }
         public async Task updateFiles(MainForm mainForm) {
-            string destinyPath = mainForm.labelDestinyPath.Text;
             string originPath = "C:\\Install\\CmxWeb";
 
-            bool canContinue = existPaths(destinyPath);
+            bool canContinue = validatePaths(mainForm.listBoxPaths.Items);
             if(!canContinue) {
                 return;
             }
 
-            if(mainForm.labelDestinyPath.Text == "Selecione a pasta de destino") {
-                MessageBox.Show("Selecione a pasta de destino!");
-                return;
-            } else {
-                try {
-                    await extractFiles();
+
+            try {
+                await extractFiles();
+                foreach(string destinyPath in mainForm.listBoxPaths.Items) {
+                    await createZipCopyOfSourceDirectory(destinyPath);
                     await getIpOfWebConfig(destinyPath);
-                    //await overrideFiles(originPath, destinyPath);
                     await overrideFiles(originPath, destinyPath);
                     await updateWebConfig(destinyPath);
-
-                    MessageBox.Show("Atualizado com sucesso!");
-                } catch(Exception ex) {
-                    MessageBox.Show(ex.Message);
                 }
+
+                MessageBox.Show("Atualizado com sucesso!");
+            } catch(Exception ex) {
+                MessageBox.Show("Ocorreu um erro não esperado durante a atualização! Teste o CMX dos clientes selecionados e caso ocorra algum problema, recupere o backup\n" + ex.Message);
 
             }
         }
 
+        private async Task createZipCopyOfSourceDirectory(string path) {
+            try {
+                string zipFilePath = path + "Backup.zip";
+                if(File.Exists(zipFilePath)) {
+                    File.Delete(zipFilePath);
+                }
+
+                ZipFile.CreateFromDirectory(path, zipFilePath, CompressionLevel.Optimal, true);
+
+            } catch(Exception ex) {
+                MessageBox.Show("Erro para criar o backup: " + ex.Message);
+            }
+        }
         private bool existPaths(string destinyPath) {
             if(!Directory.Exists(destinyPath + "\\Cross")) {
                 MessageBox.Show("O diretório '" + destinyPath + "\\Cross'" + " não foi encontrado");
@@ -134,7 +155,7 @@ namespace AtualizarCMX {
                     string port = matchCross.Groups[2].Value;
 
                     crossIPAndPort = matchCross.Groups[1].Value;
-                    } else {
+                } else {
                     MessageBox.Show("IP com porta não encontrado no texto. Ocorreu algum erro na atualização do Web.config!");
                 }
 
