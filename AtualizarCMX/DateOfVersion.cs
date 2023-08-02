@@ -14,7 +14,7 @@ namespace AtualizarCMX {
                 DateTime creationDate = File.GetCreationTime(filePath);
                 mainForm.labelDate.Text= creationDate.ToString();
             } else {
-                mainForm.labelDate.Text = "0.0.0.0";
+                mainForm.labelDate.Text = "0";
             }
         }
 

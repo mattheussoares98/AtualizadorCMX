@@ -15,20 +15,28 @@ namespace AtualizarCMX {
         private string crossSiteIPAndPort = "";
         private string crossIPAndPort = "";
 
-        private bool validatePaths(ListBox.ObjectCollection paths) {
+        private bool validateCanContinue(MainForm mainForm) {
             bool canContinue = true;
-            foreach(string path in paths) {
+            foreach(string path in mainForm.listBoxPaths.Items) {
                 if(!existPaths(path)) {
                     canContinue = false;
                     break;
                 }
+            }
+            if(mainForm.listBoxPaths.Items.Count == 0 || mainForm.listBoxPaths.Items == null) {
+                MessageBox.Show("Informe a pasta de destino para atualização!");
+                canContinue = false;
+            }
+
+            if(mainForm.labelDate.Text == "0") {
+                canContinue = false;
             }
             return canContinue;
         }
         public async Task updateFiles(MainForm mainForm) {
             string originPath = "C:\\Install\\CmxWeb";
 
-            bool canContinue = validatePaths(mainForm.listBoxPaths.Items);
+            bool canContinue = validateCanContinue(mainForm);
             if(!canContinue) {
                 return;
             }
