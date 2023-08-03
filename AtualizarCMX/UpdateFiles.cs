@@ -14,9 +14,10 @@ namespace AtualizarCMX {
     internal class UpdateFiles {
         private string crossSiteIPAndPort = "";
         private string crossIPAndPort = "";
+        bool canContinue = true;
 
-        private bool validateCanContinue(MainForm mainForm) {
-            bool canContinue = true;
+        private void validateCanContinue(MainForm mainForm) {
+            canContinue = true;
             foreach(string path in mainForm.listBoxPaths.Items) {
                 if(!existPaths(path)) {
                     canContinue = false;
@@ -29,14 +30,16 @@ namespace AtualizarCMX {
             }
 
             if(mainForm.labelDate.Text == "0") {
+                MessageBox.Show("Baixe a versão para iniciar a atualização!");
                 canContinue = false;
             }
-            return canContinue;
+
         }
         public async Task updateFiles(MainForm mainForm) {
             string originPath = "C:\\Install\\CmxWeb";
 
-            bool canContinue = validateCanContinue(mainForm);
+            validateCanContinue(mainForm);
+
             if(!canContinue) {
                 return;
             }
